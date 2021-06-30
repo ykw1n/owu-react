@@ -1,15 +1,16 @@
 import User from "./User";
 
 
-export default function Users(props) {
-    let {item} = props
-// console.log(item)
-    return(
-        <div >
-            {
-                item.map((val, index) => <User key={index} userData={val}/>)
-            }
+export default function Users({data, fnShowUserPosts,userPosts}) {
 
+    console.log(data)
+    console.log(fnShowUserPosts)
+
+    return(
+        <div>
+            {
+                data &&  data.map((val, index) => <User key={index} userPosts={userPosts} userData={val} showUserPosts={fnShowUserPosts}/>)
+            }
         </div>
     )
 }

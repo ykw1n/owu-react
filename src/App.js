@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import Users from "./components/users/Users";
 import Posts from "./components/posts/Posts";
 import Comments from "./components/comments/Comments";
-import {getUsers,getPosts,getComments} from "./api/Api";
+import {getUsers, getPosts, getPostByUserId, getComments, getCommentsByPostId} from "./api/Api";
 import {useEffect, useState} from "react";
 
 // створити посилання /users, /posts, /comments.
@@ -15,9 +15,23 @@ import {useEffect, useState} from "react";
 export default function App() {
 
    let [users, setUsers] = useState([])
+   let [posts, setPosts] = useState([])
+   let [comments, setComments] = useState([])
+   let [userPosts, setUserPosts] = useState([])
+   let [postComments, setPostComments] = useState([])
+
+    const fnShowUserPosts = (userId) => {
+            getPostByUserId(userId).then( r => setUserPosts([...r.data]));
+
+    }
+    const fnShowPostComments = (postId) => {
+        getCommentsByPostId(postId).then( r => setPostComments([...r.data]))
+    }
 
     useEffect(() => {
-        getUsers().then(r => setUsers([...r.data]))
+        getUsers().then(r => setUsers([...r.data]));
+        getPosts().then(val => setPosts([...val.data]))
+        getComments().then(res => setComments([...res.data]))
     },[])
 
 
@@ -31,9 +45,9 @@ export default function App() {
           </ul>
 
           <Route path={"/"} exact render={() => {return (<div>HOME</div>)}}/>
-          <Route path={"/users"}><Users item={users}/></Route>
-          <Route path={"/posts"}><Posts/></Route>
-          <Route path={"/comments"}> <Comments/> </Route>
+          <Route path={"/users"}><Users data={users} userPosts={userPosts} fnShowUserPosts={fnShowUserPosts}/></Route>
+          <Route path={"/posts"}><Posts data={posts} postComments={postComments} fnShowPostComments={fnShowPostComments}/></Route>
+          <Route path={"/comments"}> <Comments data={comments}/> </Route>
       </Router>
   )
 
