@@ -1,10 +1,6 @@
 import User from "./User";
 
-
 export default function Users({data, fnShowUserPosts,userPosts}) {
-
-    console.log(data)
-    console.log(fnShowUserPosts)
 
     return(
         <div>

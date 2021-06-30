@@ -1,9 +1,8 @@
 import {useState} from "react";
-import Posts from "./Posts";
 import Comments from "../comments/Comments";
 
 export default function Post({postData,postComments, showPostComments}){
-    console.log(postData)
+
     let [postStatus, setPostStatus] = useState(false)
     return(
         <div>

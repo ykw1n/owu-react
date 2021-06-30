@@ -1,7 +1,6 @@
-import Comments from "./Comments";
 
 export default function Comment({commentData}){
-    console.log(commentData)
+
     return(
             <div className="card mb-3 col-md-8">
                 <div className="card-header">
